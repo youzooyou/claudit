@@ -42,12 +42,15 @@ Claudit requests several Chrome extension permissions. Each is used strictly for
 Full justification: [`docs/permissions.md`](./docs/permissions.md)
 
 Summary:
-- `<all_urls>` — users test arbitrary admin panels; target domains cannot be enumerated in advance
-- `debugger` — CDP-based click/input/screenshot (reliable on React admins)
-- `scripting` — inject read-only DOM inspection code
-- `storage`, `alarms`, `tabs`, `webRequest`, `sidePanel`, `windows` — standard extension APIs
+- `<all_urls>` *(optional — not granted at install)* — users test arbitrary admin panels; target domains cannot be enumerated in advance. Requested on demand with an explicit Chrome permission prompt.
+- `debugger` — CDP-based click/input/screenshot (reliable on React admins); Chrome's yellow banner is always shown when attached
+- `scripting` — inject read-only DOM inspection code (no page modification)
+- `webRequest` — capture XHR/fetch requests from the test tab only for verification; request bodies are not captured
+- `webNavigation` — detect SPA navigation (pushState/replaceState) within a tab to update sidebar context and clear stale captures
+- `storage`, `alarms`, `tabs`, `sidePanel`, `windows` — standard extension APIs
 - `offscreen` — required for File System Access API (DOM context)
 - `notifications` — alert users when long-running tests complete
+- `declarativeNetRequestWithHostAccess` *(optional — not granted at install)* — only activated when a custom Base URL (corporate proxy) is configured in Options
 
 ## 📦 Installation
 
