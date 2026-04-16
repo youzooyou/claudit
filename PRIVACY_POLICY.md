@@ -87,6 +87,8 @@ Claudit sends request payloads to **the Claude API endpoint configured in the Op
 
 > **Note on network capture:** Only XHR/fetch (API) requests from the tab you are currently testing are recorded. Static resources (images, fonts, scripts, stylesheets) and requests from other tabs are excluded. Request bodies are not captured. Claude API traffic from the extension itself is also excluded.
 
+> ⚠️ **Important — sensitive data:** If you run tests on pages that display personal data (e.g., customer records, email addresses, payment information), that data may appear in screenshots or DOM snapshots sent to your configured Claude API endpoint. **We strongly recommend testing only against staging or test environments with synthetic or anonymized data.** If you must test against real data, you are responsible for ensuring you have a lawful basis to do so under applicable privacy law (e.g., GDPR, CCPA).
+
 **Authentication:** One of the following credentials is read from local storage and attached to each request:
 - **`x-api-key`** header — your Anthropic API key (standard), *or*
 - **`Authorization: Bearer <token>`** header — a bearer token, typically used for proxies or gateways that require token-based auth
@@ -245,6 +247,8 @@ Claudit이 Claude API 엔드포인트로 데이터를 전송하기 전, Options 
 | 현재 탭 URL | 매 턴 | 컨텍스트 식별 |
 
 > **네트워크 캡처 참고:** 현재 테스트 중인 탭에서 발생하는 XHR/fetch(API) 요청만 기록됩니다. 이미지·폰트·스크립트·스타일시트 등 정적 리소스와 다른 탭의 요청은 제외됩니다. 요청 바디(body)는 캡처하지 않습니다. 익스텐션 자체의 Claude API 트래픽도 제외됩니다.
+
+> ⚠️ **주의 — 민감한 데이터:** 고객 정보(이름, 이메일, 결제 정보 등)가 표시되는 화면에서 테스트를 실행하면, 해당 정보가 스크린샷 또는 DOM 스냅샷에 포함되어 설정한 Claude API 엔드포인트로 전송될 수 있습니다. **실제 사용자 데이터 대신 합성·익명화 데이터를 사용하는 스테이징 또는 테스트 환경에서만 테스트할 것을 강력히 권장합니다.** 실제 데이터가 포함된 화면에서 테스트해야 하는 경우, GDPR·개인정보 보호법 등 적용 법령에 따른 적법한 근거를 확보하는 것은 사용자 본인의 책임입니다.
 
 **인증 방식:** 다음 중 하나의 자격 증명을 로컬 저장소에서 읽어 요청에 첨부합니다.
 - **`x-api-key` 헤더** — Anthropic API 키 (표준)

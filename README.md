@@ -35,6 +35,8 @@ Claudit lets QA engineers, testers, and developers drive their own web admin pan
 
 Full Privacy Policy: [`PRIVACY_POLICY.md`](./PRIVACY_POLICY.md) (English + Korean)
 
+Terms of Service: [`TERMS_OF_SERVICE.md`](./TERMS_OF_SERVICE.md) (English + Korean)
+
 ## 🛡️ Permissions
 
 Claudit requests several Chrome extension permissions. Each is used strictly for the stated purpose.
