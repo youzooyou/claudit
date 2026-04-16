@@ -29,7 +29,6 @@ All permissions are declared in `public/manifest.json` (auto-copied to `dist/man
 | `debugger` | **Sensitive** | CDP-based click, keyboard input, and screenshots | Content script events (rejected: unreliable on React admins) |
 | `offscreen` | Standard | Running File System Access API in a DOM context | SW direct access (rejected: no `window`/`document`) |
 | `notifications` | Standard | Alerting the user when a long test completes | None — user is often on another tab during runs |
-| `<all_urls>` host | **Sensitive — Optional** | Users run tests against arbitrary admin URLs; domains are user-selected at runtime and cannot be enumerated. Declared as `optional_host_permissions` — granted on demand only. | Per-domain prompts (disrupts UX flow) |
 | `declarativeNetRequestWithHostAccess` | **Sensitive — Optional** | Routes requests to a user-configured custom Base URL / corporate proxy endpoint. Declared as `optional_permissions` — only active when a non-default Base URL is configured. | Hardcoded Anthropic endpoint (rejected: corporate deployments need custom endpoints) |
 
 ---
@@ -173,24 +172,6 @@ All permissions are declared in `public/manifest.json` (auto-copied to `dist/man
 
 ---
 
-### `<all_urls>` host permission — **Optional**
-
-**Declaration:** `optional_host_permissions` in manifest.json. This permission is **not granted at install time** — it is requested only when the user opens the Claudit side panel on a target page.
-
-**Use:** Allows content-script injection, CDP attachment, and `webRequest` capture on any URL the user visits during a test session.
-
-**Why needed:** Claudit is a tool for testing arbitrary web admin panels. The target URLs are not known in advance — a QA engineer might test `admin.example.com` on Monday and `staging.another.com` on Tuesday. Unlike a single-site extension, Claudit has no way to enumerate required hosts at install time.
-
-**Why optional (not required):** Declaring `<all_urls>` as `optional_host_permissions` means users must explicitly grant broad host access when they first open the side panel. This provides a clear consent moment and allows Chrome to show a per-permission prompt, giving users full awareness before access is granted.
-
-**Why sensitive and how risk is mitigated:**
-1. Never activates automation without an explicit user chat message
-2. Clear visual indicators (side panel open, debugger banner) whenever the extension is acting on a page
-3. All code is published and auditable at https://github.com/youzooyou/claudit
-4. No data is sent anywhere except the Claude API endpoint the user configured in Options and the user's own selected folders
-
----
-
 ### `declarativeNetRequestWithHostAccess` — **Optional**
 
 **Declaration:** `optional_permissions` in manifest.json. This permission is **not granted at install time**.
@@ -260,10 +241,6 @@ When filling out the Web Store developer console "Permission justification" fiel
 ### `notifications` justification
 
 > Required to alert the user when a long-running test session completes. Test runs can take several minutes; users often switch tabs during runs and need to know when results are ready.
-
-### `<all_urls>` host permission justification
-
-> Claudit is a QA testing tool for arbitrary web admin panels. Target URLs are not known in advance — QA engineers test different staging and production environments. Declared as optional_host_permissions so users explicitly grant access when opening the panel, not at install time. All automation requires user initiation via chat, and Chrome's debugger banner makes activity visible.
 
 ### `declarativeNetRequestWithHostAccess` justification
 

@@ -135,7 +135,6 @@ Claudit requests several Chrome extension permissions. Each is used strictly for
 
 | Permission | Type | Why |
 |-----------|------|-----|
-| `<all_urls>` host permission | **Optional** (granted on demand) | Users test arbitrary web admin panels; we cannot enumerate target domains in advance. Requested only when you open the Side Panel on a page. |
 | `declarativeNetRequestWithHostAccess` | **Optional** (granted on demand) | Used to route requests to a custom Base URL/proxy if configured. Not requested unless you set a custom endpoint. |
 | `debugger` | Required | Used to drive click/input/screenshot/network capture via Chrome DevTools Protocol, which is more reliable than content-script injection on modern React admin UIs. The yellow "Chromium is being debugged" banner is always shown during active testing. |
 | `scripting` | Required | Injects read-only DOM inspection code to capture selectors and form state. |
@@ -276,7 +275,6 @@ Claudit에는 **어떠한** 트래킹 코드도 없습니다 (Google Analytics /
 
 | 권한 | 유형 | 이유 |
 |------|------|------|
-| `<all_urls>` 호스트 권한 | **선택적** (필요 시 요청) | 사용자가 테스트하는 도메인을 사전 열거할 수 없음. 사이드 패널을 열 때만 요청됨 |
 | `declarativeNetRequestWithHostAccess` | **선택적** (필요 시 요청) | 커스텀 Base URL/프록시 라우팅 전용. 기본 엔드포인트 사용 시 불필요 |
 | `debugger` | 필수 | Chrome DevTools Protocol로 클릭·입력·스크린샷 수행. 자동화 중 항상 노란색 배너 표시 |
 | `scripting` | 필수 | 읽기 전용 DOM 검사 코드 주입으로 셀렉터·폼 상태 캡처 |
