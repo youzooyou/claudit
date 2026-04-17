@@ -80,7 +80,7 @@ Claudit sends request payloads to **the Claude API endpoint configured in the Op
 |------|------|---------|
 | Your chat messages | Every turn | Agent prompt |
 | Screenshots of the current tab | Tool call (`browser_capture`) | Visual context for the model |
-| DOM snapshots (HTML structure, form state, grid contents) | Tool call (`inspect_page`, `get_form_state`) | Page understanding — passwords are excluded |
+| DOM snapshots (HTML structure, form state, grid contents) | Tool call (`inspect_page`, `get_form_state`) | Page understanding — values of `type="password"`, `type="file"`, and fields annotated with `data-sensitive` / `data-pii` / `data-private` attributes are excluded |
 | Network request URLs from the active test tab | Tool call (`browser_network_get`) | API verification — request bodies and other tabs' traffic are not captured |
 | Specification files you load | Session start | Test planning |
 | URL of the active tab | Every turn | Context identification |
@@ -241,7 +241,7 @@ Claudit이 Claude API 엔드포인트로 데이터를 전송하기 전, Options 
 |--------|------|------|
 | 채팅 메시지 | 매 턴 | 에이전트 프롬프트 |
 | 현재 탭의 스크린샷 | `browser_capture` 도구 호출 시 | 시각적 컨텍스트 |
-| DOM 스냅샷 (HTML 구조·폼 상태·그리드 내용) | `inspect_page`, `get_form_state` 도구 호출 시 | 페이지 이해 — 비밀번호 필드 제외 |
+| DOM 스냅샷 (HTML 구조·폼 상태·그리드 내용) | `inspect_page`, `get_form_state` 도구 호출 시 | 페이지 이해 — `type="password"`·`type="file"` 필드 및 `data-sensitive` / `data-pii` / `data-private` 속성 필드의 값은 제외 |
 | 테스트 탭의 네트워크 요청 URL | `browser_network_get` 도구 호출 시 | API 검증 — 요청 바디 및 다른 탭 트래픽 미포함 |
 | 로드한 스펙 파일 | 세션 시작 | 테스트 계획 수립 |
 | 현재 탭 URL | 매 턴 | 컨텍스트 식별 |
